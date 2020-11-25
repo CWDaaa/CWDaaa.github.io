@@ -29,7 +29,7 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.2.0"></head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 
 
@@ -488,27 +488,40 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h2><p>今天做到了<a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=2035">hdoj2035</a>,这题要用到快速幂就去学习了一下简单的一些快速幂，好像还有有关于位运算的并没有去学习，因为我对位运算并不是很清楚</p>
+                <h2 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h2><p>今天做到了<a href="http://acm.hdu.edu.cn/showproblem.php?pid=2035" target="_blank" rel="noopener">hdoj2035</a>,这题要用到快速幂就去学习了一下简单的一些快速幂，好像还有有关于位运算的并没有去学习，因为我对位运算并不是很清楚</p>
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>如果普通的x的y次方我们的算法就是</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(i=1;i&lt;=y;i++)</span><br><span class="line">&#123;</span><br><span class="line">  x*=y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>至于Java有math.pow(a,b)我并不是很喜欢用，而且在做oj上这题的时候并不适合</p>
-<p>这种普通的for循环的时间复杂度是O(N)，但是用了二分法的快速幂可以减到O(log2(N))，ACM就是要越快越好，所以学它！</p>
-<p>二分法的原理很简单，这里我们拿2的1000次来讲解，大家都知道2^1000=(2<em>2)^500，这样时间复杂度就减少了一半，而4^500=(4</em>4)^250，这样我们的时间复杂度又少了一半，(16)^250=256^125，这里出现了125次，也很容易解决，256^125=(256<em>256)^62</em>256，后面都可以以此类推</p>
+<blockquote>
+<pre><code>   for(i=1;i&lt;=y;i++)
+   {
+        x*=y;
+    }</code></pre>
+</blockquote>
+<p>至于有math.pow（a,b）我并不是很喜欢用，而且在做oj上这题的时候并不适合</p>
+<p>这种普通的for循环的时间复杂度是O（N），但是用了二分法的快速幂可以减到O（log2（N）），ACM就是要越快越好，所以学它！</p>
+<p>二分法的原理很简单，这里我们拿2的1000次来讲解，大家都知道2^1000=（2&times;2）^500，这样时间复杂度就减少了一半，而4^500=（4&times;4）^250，这样我们的时间复杂度又少了一半，（16）^250=256^125，这里出现了125次，也很容易解决，256^125=（256&times;256）^62&times;256，后面都可以以此类推</p>
 <p>没有看懂的小伙伴可以看下代码，这里方便Java选手看，就加了==0和!=0这种,其实C是不用的</p>
 <p>递归法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">unsigned long pow(int x, unsigned y)</span><br><span class="line">&#123;</span><br><span class="line">  unsigned long tmp;</span><br><span class="line">  <span class="keyword">if</span>(y == 0) <span class="built_in">return</span> 1;</span><br><span class="line">  tmp = pow(x, y / 2);</span><br><span class="line">  <span class="keyword">if</span>(y % 2 == 0) <span class="built_in">return</span> (tmp * tmp);</span><br><span class="line">  <span class="keyword">else</span> <span class="built_in">return</span> (tmp * tmp * x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<blockquote>
+<pre><code>   unsigned long pow(int x, unsigned y)
+   {
+        unsigned long tmp;
+     if(y == 0) return 1;
+     tmp = pow(x, y / 2);
+     if（y % 2 == 0） return (tmp * tmp);
+     else return (tmp * tmp * x);
+    }</code></pre>
+</blockquote>
 <p>循环法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">int r=1;</span><br><span class="line"><span class="keyword">while</span>(b!=0)&#123;</span><br><span class="line">  <span class="keyword">if</span>(b%2==1) r*=a;</span><br><span class="line">  a*=a;</span><br><span class="line">  b/=2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int r&#x3D;1;</span><br><span class="line">while(b!&#x3D;0)&#123;</span><br><span class="line">  if(b%2&#x3D;&#x3D;1) r*&#x3D;a;</span><br><span class="line">  a*&#x3D;a;</span><br><span class="line">  b&#x2F;&#x3D;2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="HDOJ2035题解"><a href="#HDOJ2035题解" class="headerlink" title="HDOJ2035题解"></a><a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=2035">HDOJ2035</a>题解</h3><h4 id="模运算"><a href="#模运算" class="headerlink" title="模运算"></a>模运算</h4><p>这里先要讲一下关于模运算的事，来来学姐提供的资料，a mod m == a % m</p>
-<p>这里有几个公式<br>(a+b)mod m=((a mod m)+(b mod m))mod m<br>(a-b)mod m=((a mod m)-(b mod m))mod m<br>(a<em>b)mod m=((a mod m)</em>(b mod m))mod m<br>除法是不可以的！！！<br>(a/b)mod m 是不等于((a mod m)/(b mod m)) mod m<br>举个栗子，(100/50) mod 20=2，(100 mod 20)/(50 mod 20)mod 20=0，两个是不一样的<br>除法的取模需要逆元，想更加了解模运算的可以去查资料深入研究，这里就不再讨论了</p>
-<h4 id="正题"><a href="#正题" class="headerlink" title="正题"></a>正题</h4><p>刚刚为什么我们要讲模运算，因为这题就需要用到，我们可以看到a^b，a和b的最大值都是10000，求得的值也会很大，普通算法和快速幂都会很麻烦，但题目只要后三位，所以我们可以对快速幂进行一些优化，这里要用到(a<em>b)mod m=((a mod m)</em>(b mod m))mod m，对每个递归或者循环出来的那个累乘数都取余</p>
+<h3 id="HDOJ2035题解"><a href="#HDOJ2035题解" class="headerlink" title="HDOJ2035题解"></a><a href="http://acm.hdu.edu.cn/showproblem.php?pid=2035" target="_blank" rel="noopener">HDOJ2035</a>题解</h3><h4 id="模运算"><a href="#模运算" class="headerlink" title="模运算"></a>模运算</h4><p>这里先要讲一下关于模运算的事，来来学姐提供的资料，a mod m == a % m</p>
+<p>这里有几个公式<br>（a+b）mod m=（（a mod m）+（b mod m））mod m<br>（a-b）mod m=（（a mod m）-（b mod m））mod m<br>（a&times;b）mod m=（（a mod m）&times;（b mod m））mod m<br>除法是不可以的！！！<br>（a/b）mod m 是不等于（（a mod m）/（b mod m）） mod m<br>举个栗子，（100/50） mod 20=2，（100 mod 20）/（50 mod 20）mod 20=0，两个是不一样的<br>除法的取模需要逆元，想更加了解模运算的可以去查资料深入研究，这里就不再讨论了</p>
+<h4 id="正题"><a href="#正题" class="headerlink" title="正题"></a>正题</h4><p>刚刚为什么我们要讲模运算，因为这题就需要用到，我们可以看到a^b，a和b的最大值都是10000，求得的值也会很大，普通算法和快速幂都会很麻烦，但题目只要后三位，所以我们可以对快速幂进行一些优化，这里要用到（a&times;b）mod m=（（a mod m）&times;（b mod m））mod m，对每个递归或者循环出来的那个累乘数都取余</p>
 <p>递归法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class aa &#123;</span><br><span class="line">    static  long qpow(int a, int n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (n == 0)</span><br><span class="line">            <span class="built_in">return</span> 1;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (n % 2 == 1)</span><br><span class="line">            <span class="built_in">return</span> qpow(a, n - 1) * a %1000;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            long temp = qpow((a*a)%1000, n / 2)%1000;</span><br><span class="line">            <span class="built_in">return</span> temp ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Scanner kb=new Scanner(System.in);</span><br><span class="line">        int a=kb.nextInt();</span><br><span class="line">        int b=kb.nextInt();</span><br><span class="line">        <span class="keyword">while</span>(a!=0&amp;&amp;b!=0)&#123;</span><br><span class="line">            System.out.println(qpow(a%1000,b)%1000);</span><br><span class="line">            a=kb.nextInt();</span><br><span class="line">            b=kb.nextInt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class HDOJ2035 &#123;</span><br><span class="line">    static  long qpow(int a, int n)</span><br><span class="line">    &#123;</span><br><span class="line">        if  (n &#x3D;&#x3D; 0)</span><br><span class="line">            return 1;</span><br><span class="line">        else if (n % 2 &#x3D;&#x3D; 1)</span><br><span class="line">            return qpow(a, n - 1) * a %1000;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            long temp &#x3D; qpow((a*a)%1000, n &#x2F; 2)%1000;</span><br><span class="line">            return temp ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        Scanner kb&#x3D;new Scanner(System.in);</span><br><span class="line">        int a&#x3D;kb.nextInt();</span><br><span class="line">        int b&#x3D;kb.nextInt();</span><br><span class="line">        while(a!&#x3D;0&amp;&amp;b!&#x3D;0)&#123;</span><br><span class="line">            System.out.println(qpow(a%1000,b)%1000);</span><br><span class="line">            a&#x3D;kb.nextInt();</span><br><span class="line">            b&#x3D;kb.nextInt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>循环法</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#include &lt;stdio.h&gt;</span></span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">	int m,n,b=1;</span><br><span class="line">	<span class="keyword">while</span>(~scanf(<span class="string">&quot;%d%d&quot;</span>,&amp;m,&amp;n))</span><br><span class="line">	&#123;</span><br><span class="line">		b=1;</span><br><span class="line">		<span class="keyword">if</span>(m==0&amp;&amp;n==0) <span class="built_in">break</span>;</span><br><span class="line">		<span class="keyword">for</span>(int i=0;i&lt;n;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			b*=m;</span><br><span class="line">			b%=1000;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,b); </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">return</span> 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">int main(void)</span><br><span class="line">&#123;</span><br><span class="line">	int m,n,b&#x3D;1;</span><br><span class="line">	while(~scanf(&quot;%d%d&quot;,&amp;m,&amp;n))</span><br><span class="line">	&#123;</span><br><span class="line">		b&#x3D;1;</span><br><span class="line">		if(m&#x3D;&#x3D;0&amp;&amp;n&#x3D;&#x3D;0) break;</span><br><span class="line">		for(int i&#x3D;0;i&lt;n;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			b*&#x3D;m;</span><br><span class="line">			b%&#x3D;1000;</span><br><span class="line">		&#125;</span><br><span class="line">		printf(&quot;%d\n&quot;,b); </span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
             </div>
             <hr/>
 
@@ -632,66 +645,36 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/24/%E5%BF%AB%E9%80%9F%E5%B9%82%E8%BF%90%E7%AE%97/">
+                <a href="/2020/11/24/hello-world/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="快速幂运算">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
                         
-                        <span class="card-title">快速幂运算</span>
+                        <span class="card-title">Hello World</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            快速幂运算，有例题，还有模运算的简单公式
+                            
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-24
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-24
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%BF%AB%E9%80%9F%E5%B9%82/" class="post-category">
-                                    快速幂
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            CWD
                             
                         </span>
                     </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/ACM/">
-                        <span class="chip bg-color">ACM</span>
-                    </a>
-                    
-                    <a href="/tags/%E5%BF%AB%E9%80%9F%E5%B9%82/">
-                        <span class="chip bg-color">快速幂</span>
-                    </a>
-                    
-                    <a href="/tags/%E7%AE%97%E6%B3%95/">
-                        <span class="chip bg-color">算法</span>
-                    </a>
-                    
-                    <a href="/tags/%E9%A2%98%E8%A7%A3/">
-                        <span class="chip bg-color">题解</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%A8%A1%E8%BF%90%E7%AE%97/">
-                        <span class="chip bg-color">模运算</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -1118,20 +1101,9 @@ $(function () {
 
 	
     
-    <script type="text/javascript" color="0,0,255"
-        pointColor="0,0,255" opacity='0.7'
-        zIndex="-1" count="99"
-        src="/libs/background/canvas-nest.js"></script>
-    
 
     
-    
-    <script type="text/javascript" size="150" alpha='0.6'
-        zIndex="-1" src="/libs/background/ribbon.min.js" async="async"></script>
-    
 
-    
-    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
     
 
     
